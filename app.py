@@ -38,8 +38,8 @@ def load_lottie_json(path: str):
         return None
 
 # Si tus JSON están en la misma carpeta que app.py:
-LOTTIE_HAPPY = load_lottie_json("JFUBKdNqei.json")     # animación feliz
-LOTTIE_SAD   = load_lottie_json("emojitriste.json")    # animación triste
+LOTTIE_HAPPY = load_lottie_json("laughing cat.json")     # animación feliz
+LOTTIE_SAD   = load_lottie_json("Sad Star.json")    # animación triste
 # Si los tienes dentro de /assets, usa:
 # LOTTIE_HAPPY = load_lottie_json("assets/JFUBKdNqei.json")
 # LOTTIE_SAD   = load_lottie_json("assets/emojitriste.json")
