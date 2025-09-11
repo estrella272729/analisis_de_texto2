@@ -2,3 +2,4 @@ streamlit>=1.22.0
 textblob>=0.15.3
 pandas>=1.5.0
 googletrans==4.0.0-rc1
+streamlit-lottie==0.0.5
