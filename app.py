@@ -3,7 +3,7 @@ import pandas as pd
 from textblob import TextBlob
 import re
 from googletrans import Translator
-import streamlit-lottie
+import streamlit_lottie
 
 from streamlit_lottie import st_lottie
 import json
