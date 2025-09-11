@@ -3,6 +3,13 @@ import pandas as pd
 from textblob import TextBlob
 import re
 from googletrans import Translator
+streamlit-lottie
+
+from streamlit_lottie import st_lottie
+import json
+
+
+
 
 # Configuración de la página
 st.set_page_config(
@@ -137,7 +144,9 @@ def procesar_texto(texto):
         "texto_original": texto_original,
         "texto_traducido": texto_ingles
     }
-
+with open('laughing.json') as source:
+    animation = json.load(source)
+st.lottie(animation, width = 350)
 # Función para crear visualizaciones usando componentes nativos de Streamlit
 def crear_visualizaciones(resultados):
     col1, col2 = st.columns(2)
