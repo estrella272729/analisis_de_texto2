@@ -18,7 +18,7 @@ except Exception:
 # Configuración de página
 # =======================
 st.set_page_config(
-    page_title="Luna - Observadora de Emociones 🌙",
+    page_title="Analizador de sentimientos: ¿no sabes como te sientes? cuéntanos y te ayudamos",
     page_icon="🌙",
     layout="wide"
 )
@@ -38,7 +38,6 @@ def load_lottie_json(path: str):
 # Animaciones
 LOTTIE_HAPPY = load_lottie_json("laughing cat.json")
 LOTTIE_SAD   = load_lottie_json("Sad Star.json")
-
 
 # =======================
 # Umbrales
@@ -94,13 +93,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-col1, col2 = st.columns([2,1])
-with col2:
-    if LOTTIE_MOON:
-        st_lottie(LOTTIE_MOON, height=180, key="moon")
-
-with col1:
-    st.markdown("""
+st.markdown("""
 Luna te ayuda a **descubrir la energía emocional** detrás de tus textos.  
 Escribe una historia, un mensaje o una reflexión,  
 y ella revelará si tus palabras brillan con alegría, calma o melancolía ✨
@@ -114,16 +107,16 @@ usar_traduccion = st.sidebar.checkbox("Traducir al inglés (mejora el análisis)
 # Entrada de texto
 # =======================
 if modo == "Texto directo":
-    st.subheader("🌕 Escribe tu texto para que Luna lo analice")
+    st.subheader(" Escribe tu texto para que lo analicemos")
     texto = st.text_area("", height=200, placeholder="Escribe aquí tu texto...")
-    if st.button("Analizar ✨"):
+    if st.button("Analizar..."):
         if texto.strip():
-            with st.spinner("Luna está leyendo tu texto... 🌙"):
+            with st.spinner("Estamos leyendo tu texto... 🌙"):
                 resultados = procesar_texto(texto, usar_traduccion)
                 sentimiento = resultados["sentimiento"]
                 subjetividad = resultados["subjetividad"]
 
-                st.write("### 💫 Resultado emocional:")
+                st.write("###  Resultado emocional:")
                 if sentimiento > POS_THRESHOLD:
                     st.success(f"Tu texto transmite una energía **positiva** ({sentimiento:.2f}) 🌼")
                     if LOTTIE_HAPPY: st_lottie(LOTTIE_HAPPY, height=200)
@@ -153,5 +146,4 @@ else:
                 st.success("¡Análisis completado!")
                 st.bar_chart(pd.DataFrame(list(resultados["contador_palabras"].items())[:10],
                                           columns=["Palabra", "Frecuencia"]).set_index("Palabra"))
-
 
