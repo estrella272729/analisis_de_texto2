@@ -18,8 +18,8 @@ except Exception:
 # Configuración de página
 # =======================
 st.set_page_config(
-    page_title="Analizador de sentimientos: ¿no sabes como te sientes? cuéntanos y te ayudamos",
-    page_icon="🌙",
+    page_title="Analizador de Sentimientos 💬 ¿No sabes cómo te sientes? Cuéntanos y te ayudamos.",
+    page_icon="💬",
     layout="wide"
 )
 
@@ -84,22 +84,22 @@ def procesar_texto(texto, usar_traduccion: bool):
     }
 
 # =======================
-# Interfaz - LUNA 🌙
+# Interfaz - Analizador de Sentimientos 💬
 # =======================
 st.markdown("""
 <div style='text-align:center'>
-    <h1 style='color:#C5CAE9;'>🌙 Luna 🌙</h1>
-    <h3 style='color:#9FA8DA;'>La observadora de emociones en tus palabras</h3>
+    <h1 style='color:#4C6EF5;'>💬 Analizador de Sentimientos</h1>
+    <h3 style='color:#6C757D;'>¿No sabes cómo te sientes? Cuéntanos y te ayudamos a entenderlo.</h3>
 </div>
 """, unsafe_allow_html=True)
 
 st.markdown("""
-Luna te ayuda a **descubrir la energía emocional** detrás de tus textos.  
-Escribe una historia, un mensaje o una reflexión,  
-y ella revelará si tus palabras brillan con alegría, calma o melancolía ✨
+A veces es difícil poner en palabras lo que sentimos.  
+Escribe tus pensamientos, una reflexión o lo que tengas en mente,  
+y te ayudaremos a descubrir el **tono emocional** detrás de tus palabras 🌈  
 """)
 
-st.sidebar.title("🌔 Opciones de Análisis")
+st.sidebar.title("⚙️ Opciones de Análisis")
 modo = st.sidebar.radio("Selecciona el modo de entrada:", ["Texto directo", "Archivo de texto"])
 usar_traduccion = st.sidebar.checkbox("Traducir al inglés (mejora el análisis)", value=True)
 
@@ -107,43 +107,43 @@ usar_traduccion = st.sidebar.checkbox("Traducir al inglés (mejora el análisis)
 # Entrada de texto
 # =======================
 if modo == "Texto directo":
-    st.subheader(" Escribe tu texto para que lo analicemos")
-    texto = st.text_area("", height=200, placeholder="Escribe aquí tu texto...")
-    if st.button("Analizar..."):
+    st.subheader("📝 Cuéntanos cómo te sientes:")
+    texto = st.text_area("", height=200, placeholder="Escribe aquí lo que piensas o sientes...")
+    if st.button("Analizar 💭"):
         if texto.strip():
-            with st.spinner("Estamos leyendo tu texto... 🌙"):
+            with st.spinner("Analizando tus palabras... 💬"):
                 resultados = procesar_texto(texto, usar_traduccion)
                 sentimiento = resultados["sentimiento"]
                 subjetividad = resultados["subjetividad"]
 
-                st.write("###  Resultado emocional:")
+                st.write("### 💫 Resultado emocional:")
                 if sentimiento > POS_THRESHOLD:
-                    st.success(f"Tu texto transmite una energía **positiva** ({sentimiento:.2f}) 🌼")
+                    st.success(f"Tu texto refleja una **energía positiva** ({sentimiento:.2f}) 🌼")
                     if LOTTIE_HAPPY: st_lottie(LOTTIE_HAPPY, height=200)
                 elif sentimiento < NEG_THRESHOLD:
-                    st.error(f"Tu texto tiene un tono **melancólico o triste** ({sentimiento:.2f}) 🌧️")
+                    st.error(f"Tu texto tiene un tono **triste o melancólico** ({sentimiento:.2f}) 🌧️")
                     if LOTTIE_SAD: st_lottie(LOTTIE_SAD, height=200)
                 else:
                     st.info(f"Tu texto parece **neutral o equilibrado** ({sentimiento:.2f}) 🌗")
 
-                st.write(f"**Subjetividad:** {subjetividad:.2f}")
+                st.write(f"**Subjetividad (nivel de opinión personal):** {subjetividad:.2f}")
                 st.write("---")
                 st.write("**Palabras más frecuentes:**")
                 df = pd.DataFrame(list(resultados["contador_palabras"].items())[:10], columns=["Palabra", "Frecuencia"])
                 st.bar_chart(df.set_index("Palabra"))
         else:
-            st.warning("Por favor, escribe algo para analizar.")
+            st.warning("Por favor, escribe algo para analizar 📝")
 
 else:
-    st.subheader("🌔 Carga un archivo para analizar")
+    st.subheader("📂 Carga un archivo de texto para analizar")
     archivo = st.file_uploader("", type=["txt", "csv", "md"])
     if archivo:
         contenido = archivo.getvalue().decode("utf-8", errors="ignore")
         st.text_area("Vista previa:", contenido[:1000])
-        if st.button("Analizar archivo 🌙"):
-            with st.spinner("Luna está leyendo tu archivo..."):
+        if st.button("Analizar archivo 💭"):
+            with st.spinner("Analizando tu archivo..."):
                 resultados = procesar_texto(contenido, usar_traduccion)
-                st.success("¡Análisis completado!")
+                st.success("¡Análisis completado! 💬")
                 st.bar_chart(pd.DataFrame(list(resultados["contador_palabras"].items())[:10],
                                           columns=["Palabra", "Frecuencia"]).set_index("Palabra"))
 
