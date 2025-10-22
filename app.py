@@ -18,7 +18,7 @@ except Exception:
 # Configuración de página
 # =======================
 st.set_page_config(
-    page_title="Analizador de Sentimientos 💬 ¿No sabes cómo te sientes? Cuéntanos y te ayudamos.",
+    page_title="Analizador de Sentimientos: ¿No sabes cómo te sientes? Cuéntanos y te ayudamos.",
     page_icon="💬",
     layout="wide"
 )
@@ -88,7 +88,7 @@ def procesar_texto(texto, usar_traduccion: bool):
 # =======================
 st.markdown("""
 <div style='text-align:center'>
-    <h1 style='color:#4C6EF5;'>💬 Analizador de Sentimientos</h1>
+    <h1 style='color:#4C6EF5;'> Analizador de Sentimientos</h1>
     <h3 style='color:#6C757D;'>¿No sabes cómo te sientes? Cuéntanos y te ayudamos a entenderlo.</h3>
 </div>
 """, unsafe_allow_html=True)
@@ -96,7 +96,7 @@ st.markdown("""
 st.markdown("""
 A veces es difícil poner en palabras lo que sentimos.  
 Escribe tus pensamientos, una reflexión o lo que tengas en mente,  
-y te ayudaremos a descubrir el **tono emocional** detrás de tus palabras 🌈  
+y te ayudaremos a descubrir el **tono emocional** detrás de tus palabras   
 """)
 
 st.sidebar.title("⚙️ Opciones de Análisis")
@@ -107,16 +107,16 @@ usar_traduccion = st.sidebar.checkbox("Traducir al inglés (mejora el análisis)
 # Entrada de texto
 # =======================
 if modo == "Texto directo":
-    st.subheader("📝 Cuéntanos cómo te sientes:")
+    st.subheader(" Cuéntanos cómo te sientes:")
     texto = st.text_area("", height=200, placeholder="Escribe aquí lo que piensas o sientes...")
-    if st.button("Analizar 💭"):
+    if st.button("Analizar "):
         if texto.strip():
-            with st.spinner("Analizando tus palabras... 💬"):
+            with st.spinner("Analizando tus palabras... "):
                 resultados = procesar_texto(texto, usar_traduccion)
                 sentimiento = resultados["sentimiento"]
                 subjetividad = resultados["subjetividad"]
 
-                st.write("### 💫 Resultado emocional:")
+                st.write("###  Resultado emocional:")
                 if sentimiento > POS_THRESHOLD:
                     st.success(f"Tu texto refleja una **energía positiva** ({sentimiento:.2f}) 🌼")
                     if LOTTIE_HAPPY: st_lottie(LOTTIE_HAPPY, height=200)
@@ -135,15 +135,15 @@ if modo == "Texto directo":
             st.warning("Por favor, escribe algo para analizar 📝")
 
 else:
-    st.subheader("📂 Carga un archivo de texto para analizar")
+    st.subheader(" Carga un archivo de texto para analizar")
     archivo = st.file_uploader("", type=["txt", "csv", "md"])
     if archivo:
         contenido = archivo.getvalue().decode("utf-8", errors="ignore")
         st.text_area("Vista previa:", contenido[:1000])
-        if st.button("Analizar archivo 💭"):
+        if st.button("Analizar archivo "):
             with st.spinner("Analizando tu archivo..."):
                 resultados = procesar_texto(contenido, usar_traduccion)
-                st.success("¡Análisis completado! 💬")
+                st.success("¡Análisis completado! ")
                 st.bar_chart(pd.DataFrame(list(resultados["contador_palabras"].items())[:10],
                                           columns=["Palabra", "Frecuencia"]).set_index("Palabra"))
 
