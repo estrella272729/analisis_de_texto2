@@ -38,7 +38,7 @@ def load_lottie_json(path: str):
 # Animaciones
 LOTTIE_HAPPY = load_lottie_json("laughing cat.json")
 LOTTIE_SAD   = load_lottie_json("Sad Star.json")
-LOTTIE_MOON  = load_lottie_json("moon_thinking.json")  # Puedes usar cualquier animación lunar o relajante
+
 
 # =======================
 # Umbrales
@@ -154,6 +154,4 @@ else:
                 st.bar_chart(pd.DataFrame(list(resultados["contador_palabras"].items())[:10],
                                           columns=["Palabra", "Frecuencia"]).set_index("Palabra"))
 
-st.markdown("---")
-st.markdown("<p style='text-align:center; color:#B39DDB;'>Creado con 💜 por Luna, tu observadora emocional.</p>", unsafe_allow_html=True)
 
